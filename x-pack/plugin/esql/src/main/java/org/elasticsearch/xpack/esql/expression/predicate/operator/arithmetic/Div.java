@@ -123,8 +123,14 @@ public class Div extends EsqlArithmeticOperation implements BinaryComparisonInve
     @Evaluator(extraName = "Doubles", warnExceptions = { ArithmeticException.class })
     static double processDoubles(double lhs, double rhs) {
         double value = lhs / rhs;
-        if (Double.isNaN(value) || Double.isInfinite(value)) {
+        if (rhs==0.0) {
             throw new ArithmeticException("/ by zero");
+        }
+        else if(Double.isInfinite(value){
+            throw new ArithmeticException("floating point overflow");
+        }
+        else if(Double.isNaN(value)){
+            throw new ArithmeticException("invalid floating point operation");
         }
         return value;
     }
